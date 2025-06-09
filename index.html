@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Relax Zone</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #1e1e2f;
+      color: #e0e0f0;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    header {
+      background-color: #2a2a40;
+      padding: 1rem;
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #aabbee;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+    }
+
+    nav {
+      background-color: #2a2a40;
+      padding: 10px;
+      box-shadow: inset 0 -1px 0 rgba(255,255,255,0.1);
+    }
+
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      background-color: #3a3a55;
+      color: #e0e0f0;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #4e4e70;
+    }
+
+    .section {
+      display: none;
+      padding: 20px;
+      animation: fadeIn 0.6s ease;
+    }
+
+    .active {
+      display: block;
+    }
+
+    iframe {
+      border: none;
+      width: 90%;
+      height: 400px;
+      border-radius: 10px;
+      margin-top: 10px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+
+    textarea {
+      width: 90%;
+      height: 300px;
+      padding: 15px;
+      border-radius: 10px;
+      border: none;
+      background-color: #2e2e44;
+      color: #fff;
+      font-size: 1rem;
+      resize: none;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+      margin-top: 10px;
+    }
+
+    .quote {
+      font-style: italic;
+      margin: 20px auto;
+      padding: 15px;
+      max-width: 600px;
+      background-color: #2a2a3f;
+      border-left: 4px solid #88aaff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.05);
+    }
+
+    .final-message {
+      margin-top: 30px;
+      font-size: 1.3rem;
+      color: #aaffaa;
+      font-weight: bold;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header>🌙 Relax Zone — Seu cantinho de paz</header>
+
+  <nav>
+    <button onclick="showSection('games')">🎮 Minigames</button>
+    <button onclick="showSection('music')">🎵 Música</button>
+    <button onclick="showSection('notepad')">✍️ Bloco de Notas</button>
+  </nav>
+
+  <div id="games" class="section active">
+    <h2>Minigames Relaxantes</h2>
+    <p>Escolha um joguinho tranquilo e divirta-se:</p>
+    <iframe src="https://games.crazygames.com/en_US/clicker-heroes/index.html" title="Clicker Heroes"></iframe>
+  </div>
+
+  <div id="music" class="section">
+    <h2>Lo-Fi para sua mente 💤</h2>
+    <p>Coloque o fone, respire fundo e curta esse momento só seu.</p>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=0" 
+      title="lofi hip hop radio" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  </div>
+
+  <div id="notepad" class="section">
+    <h2>Seu Bloco de Notas 📝</h2>
+    <p>Escreva poemas, pensamentos ou o que quiser. Seu texto ficará salvo neste navegador.</p>
+    <textarea id="notepadArea" placeholder="Comece a escrever aqui..."></textarea>
+
+    <div class="quote">🕊️ "A paz vem de dentro de você. Não a procure à sua volta." – Buda</div>
+    <div class="quote">🌸 "Nada pode trazer você à paz além de você mesmo." – Ralph Waldo Emerson</div>
+
+    <div class="final-message">✨ Você é incrível ✨</div>
+  </div>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    const textarea = document.getElementById('notepadArea');
+    textarea.value = localStorage.getItem('blocoDeNotas') || '';
+    textarea.addEventListener('input', () => {
+      localStorage.setItem('blocoDeNotas', textarea.value);
+    });
+  </script>
+</body>
+</html>
