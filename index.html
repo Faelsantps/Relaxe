@@ -326,6 +326,7 @@
     <h3>Jogo da Memória</h3>
     <div class="memory-board" id="memoryBoard"></div>
     <div class="score" id="memoryScore"></div>
+    <button onclick="createMemoryBoard()">Reiniciar Jogo da Memória</button>
   </div>
 
   <!-- Jogo da Forca -->
@@ -447,7 +448,15 @@
   createMemoryBoard();
 
   // --- Jogo da Forca ---
-  const palavras = ['lua', 'estrela', 'mar', 'vento', 'flor', 'neve', 'tempo', 'amor'];
+ const palavras = [
+  'lua', 'estrela', 'mar', 'vento', 'flor', 'neve', 'tempo', 'amor',
+  'paz', 'tristeza', 'esperança', 'vida', 'natureza', 'reflexão', 'serenidade',
+  'calma', 'chuva', 'nuvem', 'céu', 'oceano', 'brisa', 'poesia', 'noite',
+  'alvorecer', 'amanhecer', 'equilibrio', 'sossego', 'aconchego', 'tranquilidade',
+  'harmonia', 'gentileza', 'carinho', 'ternura', 'contemplação', 'afeto',
+  'compaixao', 'descanso', 'luz', 'penumbra', 'silencio', 'plenitude',
+  'simplicidade', 'florescer', 'abraco', 'doçura', 'bondade', 'gratidão'
+];
   let palavraSecreta = '';
   let letrasChutadas = [];
   let tentativas = 6;
