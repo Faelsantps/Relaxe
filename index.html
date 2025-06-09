@@ -1,168 +1,520 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Relax Zone</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #1e1e2f;
-      color: #e0e0f0;
-      margin: 0;
-      padding: 0;
-      text-align: center;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Relax Zone</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+  body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #e0e0f0;
+    min-height: 100vh;
+    background:
+      url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80') no-repeat center bottom;
+    background-size: cover;
+    background-attachment: fixed;
+    position: relative;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    top:0; left:0; right:0; bottom:0;
+    background: rgba(26, 34, 56, 0.85);
+    z-index: -1;
+  }
+
+  header {
+    background: rgba(75, 54, 124, 0.85);
+    padding: 1.5rem 2rem;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #c8b7ff;
+    box-shadow: 0 4px 12px rgba(75,54,124,0.6);
+    border-radius: 0 0 20px 20px;
+    width: 100%;
+    max-width: 900px;
+    margin: 1rem auto 2rem auto;
+    text-align: center;
+    animation: glow 3s ease-in-out infinite alternate;
+    user-select: none;
+  }
+  @keyframes glow {
+    0% {
+      text-shadow:
+        0 0 5px #b49fff,
+        0 0 15px #9a7cff,
+        0 0 25px #6e52ff;
     }
+    100% {
+      text-shadow:
+        0 0 10px #c9b7ff,
+        0 0 30px #aa8fff,
+        0 0 40px #8366ff;
+    }
+  }
+
+  nav {
+    background: rgba(26, 34, 56, 0.85);
+    padding: 12px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(75,54,124,0.4);
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 2rem auto;
+  }
+  button {
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 12px;
+    background-color: #6a59a6;
+    color: #f0e6ff;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(107, 89, 166, 0.7);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: 600;
+    user-select: none;
+  }
+  button:hover {
+    background-color: #846fce;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(132, 111, 206, 0.9);
+  }
+
+  .section {
+    display: none;
+    padding: 25px 15px 40px;
+    animation: fadeIn 0.6s ease;
+    width: 100%;
+    max-width: 900px;
+    background: rgba(33, 28, 54, 0.8);
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(107, 89, 166, 0.35);
+    color: #dcd6f7;
+    margin: 0 auto 40px auto;
+    user-select: text;
+  }
+  .active {
+    display: block;
+  }
+  iframe {
+    width: 100%;
+    max-width: 560px;
+    height: 320px;
+    border: none;
+    border-radius: 15px;
+    margin-top: 12px;
+    box-shadow: 0 0 40px rgba(120, 101, 210, 0.4);
+  }
+  textarea {
+    width: 95%;
+    max-width: 700px;
+    height: 260px;
+    padding: 18px;
+    border-radius: 15px;
+    border: none;
+    background-color: #4a3e87;
+    color: #ede9ff;
+    font-size: 1.1rem;
+    resize: none;
+    box-shadow: inset 0 0 12px rgba(84, 68, 146, 0.9);
+    margin-top: 15px;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.5;
+    transition: background-color 0.3s ease;
+  }
+  textarea:focus {
+    background-color: #5a4db4;
+    outline: none;
+  }
+  .quote {
+    font-style: italic;
+    margin: 25px auto 15px;
+    padding: 20px;
+    max-width: 620px;
+    background-color: #3f3578;
+    border-left: 6px solid #a493f0;
+    border-radius: 12px;
+    box-shadow: 0 0 18px rgba(164, 147, 240, 0.3);
+    font-size: 1.15rem;
+    color: #cec9f7;
+    user-select: none;
+  }
+  .final-message {
+    margin-top: 40px;
+    font-size: 1.5rem;
+    color: #b5d3a8;
+    font-weight: 700;
+    text-shadow: 0 0 8px #a8cba8;
+    user-select: none;
+  }
+  .spotify-link {
+    margin-top: 22px;
+    font-size: 1.1rem;
+    color: #b9aaff;
+    user-select: none;
+  }
+  .spotify-link a {
+    color: #d1c2ff;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+  .spotify-link a:hover {
+    color: #f0e6ff;
+  }
+
+  /* Minigames styling */
+  .game-container {
+    margin-top: 20px;
+  }
+  .clicker-btn {
+    font-size: 1.5rem;
+    padding: 15px 30px;
+    border-radius: 15px;
+    border: none;
+    background-color: #7a68c6;
+    color: #eee;
+    cursor: pointer;
+    box-shadow: 0 5px 15px #8c79d8;
+    transition: background-color 0.3s ease;
+  }
+  .clicker-btn:hover {
+    background-color: #957ee7;
+  }
+  .score {
+    font-size: 1.4rem;
+    margin-top: 10px;
+    color: #c9bbff;
+  }
+  .memory-board {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(70px,1fr));
+    gap: 10px;
+    justify-items: center;
+    max-width: 420px;
+    margin: 20px auto 0 auto;
+  }
+  .memory-card {
+    width: 70px;
+    height: 70px;
+    background-color: #6c5fa8;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: transparent;
+    font-size: 2rem;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 0 3px 10px rgba(99, 85, 168, 0.6);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .memory-card.flipped, .memory-card.matched {
+    background-color: #a395f7;
+    color: #3f3578;
+    cursor: default;
+  }
+
+  .forca-area {
+    max-width: 600px;
+    margin: 20px auto 0 auto;
+    font-size: 1.2rem;
+    user-select: none;
+  }
+  .forca-palavra {
+    letter-spacing: 8px;
+    font-weight: 700;
+    margin-bottom: 15px;
+  }
+  .forca-input {
+    padding: 10px;
+    font-size: 1.1rem;
+    width: 70px;
+    text-transform: uppercase;
+    border-radius: 10px;
+    border: none;
+    background-color: #5a4db4;
+    color: #eee;
+    margin-right: 10px;
+  }
+  .forca-btn {
+    padding: 10px 18px;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    border: none;
+    background-color: #7a68c6;
+    color: #eee;
+    cursor: pointer;
+    box-shadow: 0 5px 15px #8c79d8;
+    transition: background-color 0.3s ease;
+  }
+  .forca-btn:hover {
+    background-color: #957ee7;
+  }
+  .forca-status {
+    margin-top: 15px;
+    font-weight: 700;
+    color: #c9bbff;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (max-width: 600px) {
     header {
-      background-color: #2a2a40;
-      padding: 1rem;
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #aabbee;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.4);
-    }
-    nav {
-      background-color: #2a2a40;
-      padding: 10px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
+      font-size: 1.6rem;
     }
     button {
-      padding: 10px 16px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 10px;
-      background-color: #3a3a55;
-      color: #e0e0f0;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    button:hover {
-      background-color: #4e4e70;
-    }
-    .section {
-      display: none;
-      padding: 20px;
-      animation: fadeIn 0.6s ease;
-    }
-    .active {
-      display: block;
+      width: 100%;
+      max-width: 90%;
+      font-size: 1.1rem;
     }
     iframe {
-      width: 100%;
-      max-width: 560px;
-      height: 315px;
-      border: none;
-      border-radius: 10px;
-      margin-top: 10px;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      height: 240px;
     }
     textarea {
-      width: 95%;
-      max-width: 700px;
-      height: 250px;
-      padding: 15px;
-      border-radius: 10px;
-      border: none;
-      background-color: #2e2e44;
-      color: #fff;
-      font-size: 1rem;
-      resize: none;
-      box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
-      margin-top: 10px;
+      height: 200px;
     }
-    .quote {
-      font-style: italic;
-      margin: 20px auto;
-      padding: 15px;
-      max-width: 600px;
-      background-color: #2a2a3f;
-      border-left: 4px solid #88aaff;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(255,255,255,0.05);
+    .section {
+      padding: 20px 10px 30px;
     }
-    .final-message {
-      margin-top: 30px;
-      font-size: 1.3rem;
-      color: #aaffaa;
-      font-weight: bold;
+    .memory-board {
+      grid-template-columns: repeat(4, 1fr);
+      max-width: 100%;
+      gap: 8px;
     }
-    .spotify-link {
-      margin-top: 20px;
-      font-size: 1rem;
-      color: #88f;
+    .memory-card {
+      width: 60px;
+      height: 60px;
+      font-size: 1.5rem;
     }
-    .spotify-link a {
-      color: #8cf;
-      text-decoration: underline;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @media (max-width: 600px) {
-      header {
-        font-size: 1.2rem;
-      }
-      button {
-        width: 100%;
-        max-width: 90%;
-        font-size: 1rem;
-      }
-      iframe {
-        height: 240px;
-      }
-      textarea {
-        height: 200px;
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
-  <header>🌙 Relax Zone — Seu cantinho de paz</header>
 
-  <nav>
-    <button onclick="showSection('games')">🎮 Minigames</button>
-    <button onclick="showSection('music')">🎵 Música</button>
-    <button onclick="showSection('notepad')">✍️ Bloco de Notas</button>
-  </nav>
+<header>🌙 Relax Zone — Seu cantinho de paz</header>
 
-  <div id="games" class="section active">
-    <h2>Minigames Relaxantes</h2>
-    <p>Jogue enquanto escuta música relaxante.</p>
-    <iframe src="https://games.crazygames.com/en_US/clicker-heroes/index.html"></iframe>
+<nav>
+  <button onclick="showSection('games')">🎮 Minigames</button>
+  <button onclick="showSection('music')">🎵 Música</button>
+  <button onclick="showSection('notepad')">✍️ Bloco de Notas</button>
+</nav>
+
+<!-- Minigames Section -->
+<div id="games" class="section active">
+  <h2>Minigames Relaxantes</h2>
+  <p>Jogue enquanto escuta música relaxante.</p>
+
+  <!-- Jogo do Clique -->
+  <div class="game-container" id="clicker-game">
+    <h3>Jogo do Clique</h3>
+    <button class="clicker-btn" id="clickerBtn">Clique aqui!</button>
+    <div class="score" id="clickerScore">Pontos: 0</div>
   </div>
 
-  <div id="music" class="section">
-    <h2>Lo-Fi para sua mente 💤</h2>
-    <iframe src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=0" allowfullscreen></iframe>
-    <div class="spotify-link">
-      🎧 Caso você queira novas músicas, <a href="https://open.spotify.com/playlist/1fvseKG8utna9uiXQR4Bti?si=465ad7c4825e424f" target="_blank">clique neste link</a>
+  <!-- Jogo da Memória -->
+  <div class="game-container" id="memory-game">
+    <h3>Jogo da Memória</h3>
+    <div class="memory-board" id="memoryBoard"></div>
+    <div class="score" id="memoryScore"></div>
+  </div>
+
+  <!-- Jogo da Forca -->
+  <div class="game-container" id="forca-game">
+    <h3>Jogo da Forca</h3>
+    <div class="forca-area">
+      <div class="forca-palavra" id="forcaPalavra"></div>
+      <input type="text" maxlength="1" id="forcaInput" class="forca-input" placeholder="Letra" />
+      <button class="forca-btn" onclick="chutarLetra()">Chutar</button>
+      <div class="forca-status" id="forcaStatus"></div>
+      <button class="forca-btn" onclick="resetForca()">Reiniciar Forca</button>
     </div>
   </div>
+</div>
 
-  <div id="notepad" class="section">
-    <h2>Seu Bloco de Notas 📝</h2>
-    <p>Escreva poemas, pensamentos ou o que quiser. Seu texto ficará salvo neste navegador.</p>
-    <textarea id="notepadArea" placeholder="Comece a escrever aqui..."></textarea>
-
-    <div class="quote">🕊️ "A paz vem de dentro de você. Não a procure à sua volta." – Buda</div>
-    <div class="quote">🌸 "Nada pode trazer você à paz além de você mesmo." – Ralph Waldo Emerson</div>
-    <div class="final-message">✨ Você é incrível ✨</div>
+<!-- Music Section -->
+<div id="music" class="section">
+  <h2>Lo-Fi para sua mente 💤</h2>
+  <iframe src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=0" allowfullscreen></iframe>
+  <div class="spotify-link">
+    🎧 Caso você queira novas músicas, <a href="https://open.spotify.com/playlist/1fvseKG8utna9uiXQR4Bti?si=465ad7c4825e424f" target="_blank" rel="noopener noreferrer">clique neste link</a>
   </div>
+</div>
 
-  <script>
-    function showSection(id) {
-      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-    }
-    const textarea = document.getElementById('notepadArea');
-    textarea.value = localStorage.getItem('blocoDeNotas') || '';
-    textarea.addEventListener('input', () => {
-      localStorage.setItem('blocoDeNotas', textarea.value);
+<!-- Notepad Section -->
+<div id="notepad" class="section">
+  <h2>Seu Bloco de Notas 📝</h2>
+  <textarea id="notepadArea" placeholder="Escreva suas ideias, pensamentos, poesias ou listas aqui..."></textarea>
+</div>
+
+<script>
+  // Navegação simples entre seções
+  function showSection(id) {
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(sec => {
+      if(sec.id === id) {
+        sec.classList.add('active');
+      } else {
+        sec.classList.remove('active');
+      }
     });
-  </script>
+  }
+
+  // --- Jogo do Clique ---
+  let clickerPoints = 0;
+  const clickerBtn = document.getElementById('clickerBtn');
+  const clickerScore = document.getElementById('clickerScore');
+  clickerBtn.onclick = () => {
+    clickerPoints++;
+    clickerScore.textContent = `Pontos: ${clickerPoints}`;
+  };
+
+  // --- Jogo da Memória ---
+  const memoryBoard = document.getElementById('memoryBoard');
+  const memoryScore = document.getElementById('memoryScore');
+
+  // Cartas emoji para combinar (pares)
+  const emojis = ['🍃','🌙','⭐','💧','🌸','🔥','❄️','🍄'];
+  let cards = [...emojis, ...emojis];
+  let flippedCards = [];
+  let matchedCount = 0;
+
+  function shuffle(array) {
+    for(let i = array.length -1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i+1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  function createMemoryBoard() {
+    memoryBoard.innerHTML = '';
+    cards = shuffle(cards);
+    matchedCount = 0;
+    flippedCards = [];
+    memoryScore.textContent = '';
+    cards.forEach((emoji, index) => {
+      const card = document.createElement('div');
+      card.classList.add('memory-card');
+      card.dataset.emoji = emoji;
+      card.dataset.index = index;
+      card.textContent = emoji;
+      card.style.color = 'transparent';
+
+      card.onclick = () => {
+        if(flippedCards.length < 2 && !card.classList.contains('flipped') && !card.classList.contains('matched')) {
+          card.classList.add('flipped');
+          card.style.color = 'inherit';
+          flippedCards.push(card);
+          if(flippedCards.length === 2) {
+            setTimeout(checkMatch, 700);
+          }
+        }
+      };
+      memoryBoard.appendChild(card);
+    });
+  }
+
+  function checkMatch() {
+    const [card1, card2] = flippedCards;
+    if(card1.dataset.emoji === card2.dataset.emoji) {
+      card1.classList.add('matched');
+      card2.classList.add('matched');
+      matchedCount++;
+      if(matchedCount === emojis.length) {
+        memoryScore.textContent = 'Parabéns! Você encontrou todos os pares!';
+      } else {
+        memoryScore.textContent = `Pares encontrados: ${matchedCount}`;
+      }
+    } else {
+      card1.classList.remove('flipped');
+      card2.classList.remove('flipped');
+      card1.style.color = 'transparent';
+      card2.style.color = 'transparent';
+    }
+    flippedCards = [];
+  }
+
+  createMemoryBoard();
+
+  // --- Jogo da Forca ---
+  const palavras = ['lua', 'estrela', 'mar', 'vento', 'flor', 'neve', 'tempo', 'amor'];
+  let palavraSecreta = '';
+  let letrasChutadas = [];
+  let tentativas = 6;
+
+  const forcaPalavra = document.getElementById('forcaPalavra');
+  const forcaInput = document.getElementById('forcaInput');
+  const forcaStatus = document.getElementById('forcaStatus');
+
+  function resetForca() {
+    palavraSecreta = palavras[Math.floor(Math.random() * palavras.length)].toUpperCase();
+    letrasChutadas = [];
+    tentativas = 6;
+    forcaStatus.textContent = `Tentativas restantes: ${tentativas}`;
+    atualizaForcaPalavra();
+    forcaInput.value = '';
+    forcaInput.disabled = false;
+  }
+
+  function atualizaForcaPalavra() {
+    let display = '';
+    for(let letra of palavraSecreta) {
+      display += letrasChutadas.includes(letra) ? letra + ' ' : '_ ';
+    }
+    forcaPalavra.textContent = display.trim();
+  }
+
+  function chutarLetra() {
+    const letra = forcaInput.value.toUpperCase();
+    if(!letra.match(/[A-ZÇ]/) || letra.length !== 1) {
+      alert('Por favor, digite uma única letra válida.');
+      forcaInput.value = '';
+      return;
+    }
+    if(letrasChutadas.includes(letra)) {
+      alert('Você já tentou essa letra.');
+      forcaInput.value = '';
+      return;
+    }
+    letrasChutadas.push(letra);
+
+    if(!palavraSecreta.includes(letra)) {
+      tentativas--;
+      forcaStatus.textContent = `Tentativas restantes: ${tentativas}`;
+    } else {
+      forcaStatus.textContent = `Boa! Tentativas restantes: ${tentativas}`;
+    }
+    atualizaForcaPalavra();
+    forcaInput.value = '';
+
+    checaFimForca();
+  }
+
+  function checaFimForca() {
+    if(tentativas <= 0) {
+      forcaStatus.textContent = `Você perdeu! A palavra era: ${palavraSecreta}`;
+      forcaInput.disabled = true;
+    }
+    if(!forcaPalavra.textContent.includes('_')) {
+      forcaStatus.textContent = 'Parabéns, você ganhou!';
+      forcaInput.disabled = true;
+    }
+  }
+
+  resetForca();
+
+</script>
+
 </body>
 </html>
+
